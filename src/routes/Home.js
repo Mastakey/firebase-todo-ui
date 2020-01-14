@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Material UI
@@ -20,13 +21,15 @@ const styles = {
 
 export class Home extends Component {
   render() {
-      const classes = this.props.classes;
+    const classes = this.props.classes;
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} elevation={3}>
             <Typography variant="h2">Home</Typography>
             <Typography variant="body1">Hello!</Typography>
+            <Link to={`/todo`}>Todo</Link>
+              
           </Paper>
         </Grid>
       </Grid>
