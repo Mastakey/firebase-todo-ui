@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+//Components
+import ErrorMessages from "../../error/ErrorMessages";
+
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 //Quill
 import ReactQuill from "react-quill";
-import QuillSettings from "../quill/QuillSettings";
+import QuillSettings from "../../quill/QuillSettings";
 import "react-quill/dist/quill.snow.css";
 
 const styles = {
@@ -31,18 +33,18 @@ const styles = {
   }
 };
 
-class CreateTodo extends Component {
+class CreateProject extends Component {
   constructor() {
     super();
     this.state = {
       name: "",
       description: "",
       descriptionDelta: [],
-      projectId: "",
-      assignee: "",
-      details: "",
-      priority: "",
-      status: ""
+        tags: "",
+        end: "",
+        type: "",
+        start: "",
+
     };
   }
   handleChange = event => {
@@ -54,13 +56,13 @@ class CreateTodo extends Component {
       name: this.state.name,
       description: this.state.description,
       descriptionDelta: this.state.descriptionDelta,
-      projectId: this.state.projectId,
-      assignee: this.state.assignee,
-      details: this.state.details,
-      priority: this.state.priority,
-      status: this.state.status
+      tags: this.state.tags,
+      end: this.state.end,
+      type: this.state.type,
+      start: this.state.start,
+
     };
-    await this.props.createTodo(data);
+    await this.props.createProject(data);
   };
   handleCancel = async event => {};
 
@@ -73,7 +75,7 @@ class CreateTodo extends Component {
   render() {
     const classes = this.props.classes;
     const loading = this.props.loading;
-    let errorStr = "";
+    const error = this.props.error;
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -97,40 +99,41 @@ class CreateTodo extends Component {
           />
           <TextField
             className={classes.textField}
-            name="assignee"
+            name="tags"
             autoComplete="off"
-            label="Assignee"
+            label="Tags"
             variant="outlined"
             onChange={this.handleChange}
             fullWidth
           />
           <TextField
             className={classes.textField}
-            name="details"
+            name="end"
             autoComplete="off"
-            label="Details"
+            label="End"
             variant="outlined"
             onChange={this.handleChange}
             fullWidth
           />
           <TextField
             className={classes.textField}
-            name="status"
+            name="type"
             autoComplete="off"
-            label="Status"
+            label="Type"
             variant="outlined"
             onChange={this.handleChange}
             fullWidth
           />
           <TextField
             className={classes.textField}
-            name="priority"
+            name="start"
             autoComplete="off"
-            label="Priority"
+            label="Start"
             variant="outlined"
             onChange={this.handleChange}
             fullWidth
           />
+
         </Grid>
         <Grid item xs={12}>
           <Button
@@ -149,26 +152,24 @@ class CreateTodo extends Component {
             variant="contained"
             color="secondary"
             component={Link}
-            to={`/todo`}
-          >
+            to={`/project`}>
             Cancel
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="body1" color="secondary">
-            {this.props.errors && errorStr}
-          </Typography>
+          <ErrorMessages error={error} />
         </Grid>
       </Grid>
     );
   }
 }
 
-CreateTodo.propTypes = {
+CreateProject.propTypes = {
   classes: PropTypes.object.isRequired,
-  createTodo: PropTypes.func.isRequired
+  error: PropTypes.object.isRequired,
+  createProject: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, null)(withStyles(styles)(CreateTodo));
+export default connect(mapStateToProps, null)(withStyles(styles)(CreateProject));

@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+//Components
+import ErrorMessages from "../../error/ErrorMessages";
+
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
@@ -12,7 +15,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 //Quill
 import ReactQuill from "react-quill";
-import QuillSettings from "../quill/QuillSettings";
+import QuillSettings from "../../quill/QuillSettings";
 import "react-quill/dist/quill.snow.css";
 
 const styles = {
@@ -34,7 +37,7 @@ const styles = {
   }
 };
 
-class EditTodoFull extends Component {
+class EditProjectFull extends Component {
   render() {
     const classes = this.props.classes;
     return (
@@ -60,44 +63,45 @@ class EditTodoFull extends Component {
           />
           <TextField
             className={classes.textField}
-            name="assignee"
+            name="tags"
             autoComplete="off"
-            label="Assignee"
+            label="Tags"
             variant="outlined"
-            value={this.props.state.assignee}
+            value={this.props.state.tags}
             onChange={this.props.handleChange}
             fullWidth
           />
           <TextField
             className={classes.textField}
-            name="details"
+            name="end"
             autoComplete="off"
-            label="Details"
+            label="End"
             variant="outlined"
-            value={this.props.state.details}
+            value={this.props.state.end}
             onChange={this.props.handleChange}
             fullWidth
           />
           <TextField
             className={classes.textField}
-            name="status"
+            name="type"
             autoComplete="off"
-            label="Status"
+            label="Type"
             variant="outlined"
-            value={this.props.state.status}
+            value={this.props.state.type}
             onChange={this.props.handleChange}
             fullWidth
           />
           <TextField
             className={classes.textField}
-            name="priority"
+            name="start"
             autoComplete="off"
-            label="Priority"
+            label="Start"
             variant="outlined"
-            value={this.props.state.priority}
+            value={this.props.state.start}
             onChange={this.props.handleChange}
             fullWidth
           />
+
         </Grid>
         <Grid item xs={12}>
           <Button
@@ -114,20 +118,21 @@ class EditTodoFull extends Component {
           </Button>
           <Button
             component={Link}
-            to={`/todo/${this.props.id}`}
+            to={`/project/${this.props.id}`}
             variant="contained"
             color="secondary"
           >
             Cancel
           </Button>
+          <ErrorMessages error={this.props.error} />
         </Grid>
       </Grid>
     );
   }
 }
 
-EditTodoFull.propTypes = { classes: PropTypes.object.isRequired };
+EditProjectFull.propTypes = { classes: PropTypes.object.isRequired, error: PropTypes.object.isRequired };
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, null)(withStyles(styles)(EditTodoFull));
+export default connect(mapStateToProps, null)(withStyles(styles)(EditProjectFull));

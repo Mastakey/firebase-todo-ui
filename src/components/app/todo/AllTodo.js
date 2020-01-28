@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 //Components
-import SimpleCard from "../view/SimpleCard";
+import SimpleCard from "../../view/SimpleCard";
 
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = {};
 
-class AllTodoCard extends Component {
+class AllTodo extends Component {
   render() {
     const todos = this.props.todos;
     return (
@@ -45,11 +45,11 @@ class AllTodoCard extends Component {
   }
 }
 
-AllTodoCard.propTypes = {
+AllTodo.propTypes = {
   classes: PropTypes.object.isRequired,
   todos: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, null)(withStyles(styles)(AllTodoCard));
+export default connect(mapStateToProps, null)(withStyles(styles)(AllTodo));

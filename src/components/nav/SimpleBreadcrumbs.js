@@ -24,14 +24,16 @@ class SimpleBreadcrumbs extends Component {
       <Grid container item xs={12}>
         <Breadcrumbs aria-label="breadcrumb">
         {ancestors.map(an => {
+          let key = 'nokey';
           if (an && an.name){
-            return (<Link key={an.name} href={an.url}>
-              {an.name}
-            </Link>);
+            key = an.name;
+            return (
+              <Link key={key} href={an.url}>
+                {an.name}
+              </Link>
+            );
           }
-          return (
-            <CircularProgress key={an.name} size={20}/>
-          );
+          return <CircularProgress key={key} size={20} />;
         })}
           {currentPage && currentPage.name && (<Link href={"#"}>{currentPage.name}</Link>)}
         </Breadcrumbs>

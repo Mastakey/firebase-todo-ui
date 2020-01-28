@@ -18,6 +18,11 @@ const styles = {
   cardLink: {
     color: "#000000"
   },
+  cardContent: {
+    "&:hover": {
+      background: "#F5F5F5"
+    }
+  },
   title: {
     fontSize: 14
   },
@@ -36,26 +41,27 @@ class SimpleCard extends Component {
     const link = this.props.link;
     return (
       <Card className={classes.card} elevation={3}>
-        <CardContent>
-          <Typography
-            className={classes.title}
-            color="textSecondary"
-            gutterBottom
-          >
-            {topHeader}
-          </Typography>
-          <Link to={link.url} className={classes.cardLink}>
+        <Link to={link.url} className={classes.cardLink}>
+          <CardContent className={classes.cardContent}>
             <Typography variant="h6" component="h6">
               {title}
             </Typography>
-          </Link>
-          <Typography className={classes.pos} color="textSecondary">
-            {subTitle}
-          </Typography>
-          <Typography variant="body2" component="p">
-            {content}
-          </Typography>
-        </CardContent>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            >
+              {topHeader}
+            </Typography>
+
+            <Typography className={classes.pos} color="textSecondary">
+              {subTitle}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {content}
+            </Typography>
+          </CardContent>
+        </Link>
       </Card>
     );
   }

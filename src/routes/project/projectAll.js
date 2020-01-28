@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 //Redux
 import { connect } from "react-redux";
-import { getTodos } from "../../redux/actions/todoActions";
+import { getProjects } from "../../redux/actions/projectActions";
 import { addMessage } from "../../redux/actions/uiActions";
 
 //Components
 //import SimpleTable from "../../components/table/SimpleTable";
-import AllTodo from "../../components/app/todo/AllTodo";
+import AllProject from "../../components/app/project/AllProject";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 import ErrorHandler from "../../components/error/ErrorHandler";
@@ -28,20 +28,20 @@ const styles = {
   }
 };
 
-class todoAll extends Component {
+class projectAll extends Component {
   async componentDidMount() {
-    this.props.getTodos();
+    this.props.getProjects();
   }
   render() {
     const classes = this.props.classes;
-    const todos = this.props.todo.todos;
-    const loading = this.props.todo.readLoading;
-    const error = this.props.todo.error;
+    const projects = this.props.project.projects;
+    const loading = this.props.project.readLoading;
+    const error = this.props.project.error;
     let header = (
       <PageHeader
         ancestors={[{ name: "Home", url: "/" }]}
-        currentPage={{ name: "Todos", url: "/todo" }}
-        title={"Todos"}
+        currentPage={{ name: "Projects", url: "/project" }}
+        title={"Projects"}
       />
     );
     let body;
@@ -57,10 +57,10 @@ class todoAll extends Component {
       body = (
         <Fragment>
           <Grid container item xs={12}>
-            <AllTodo todos={todos} />
+            <AllProject projects={projects} />
           </Grid>
           <Grid container item xs={12}>
-            <Link to={`/todo/create`}>
+            <Link to={`/project/create`}>
               <Fab size="small" color="default" className={classes.fab}>
                 <AddIcon />
               </Fab>
@@ -85,18 +85,18 @@ class todoAll extends Component {
   }
 }
 
-todoAll.propTypes = {
+projectAll.propTypes = {
   classes: PropTypes.object.isRequired,
-  getTodos: PropTypes.func.isRequired,
+  getProjects: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
-  todo: PropTypes.object.isRequired
+  project: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  todo: state.todo
+  project: state.project
 });
 
 export default connect(mapStateToProps, {
-  getTodos,
+  getProjects,
   addMessage
-})(withStyles(styles)(todoAll));
+})(withStyles(styles)(projectAll));

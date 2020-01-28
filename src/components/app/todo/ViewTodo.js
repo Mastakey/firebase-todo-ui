@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Components
-import LoadingBasic from "../../components/loading/LoadingBasic";
-import DeleteDialog from "../../components/dialog/DeleteDialog";
+import DeleteDialog from "../../dialog/DeleteDialog";
 
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -50,13 +49,9 @@ class ViewTodo extends Component {
   render() {
     const classes = this.props.classes;
     const todo = this.props.todo;
-    const loading = this.props.loading;
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          {loading ? (
-            <LoadingBasic />
-          ) : (
             <Paper elevation={3} className={classes.paper}>
               <Fab
                 size="small"
@@ -89,7 +84,6 @@ class ViewTodo extends Component {
                 </Fab>
               </Link>
             </Paper>
-          )}
         </Grid>
       </Grid>
     );

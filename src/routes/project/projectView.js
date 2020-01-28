@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 //Redux
 import { connect } from "react-redux";
-import { getTodo, deleteTodo } from "../../redux/actions/todoActions";
+import { getProject, deleteProject } from "../../redux/actions/projectActions";
 
 //Components
-import ViewTodo from "../../components/app/todo/ViewTodo";
+import ViewProject from "../../components/app/project/ViewProject";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 import ErrorHandler from "../../components/error/ErrorHandler";
@@ -21,27 +21,27 @@ const styles = {
   }
 };
 
-class todoView extends Component {
+class projectView extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
-    await this.props.getTodo(id);
+    await this.props.getProject(id);
   }
-  async deleteTodo() {
+  async deleteProject() {
     const id = this.props.match.params.id;
-    await this.props.deleteTodo(id, this.props.history);
+    await this.props.deleteProject(id, this.props.history);
   }
   render() {
-    const todo = this.props.todo.todo;
-    const loading = this.props.todo.readLoading;
-    const error = this.props.todo.error;
+    const project = this.props.project.project;
+    const loading = this.props.project.readLoading;
+    const error = this.props.project.error;
     let header = (
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "Todos", url: "/todo" }
+          { name: "Projects", url: "/project" }
         ]}
-        currentPage={{ name: todo.name, url: "/todo" }}
-        title={"Todos"}
+        currentPage={{ name: project.name, url: "/project" }}
+        title={"Projects"}
       />
     );
     let body;
@@ -53,7 +53,7 @@ class todoView extends Component {
         </Grid>
       );
     } else {
-      body = <ViewTodo todo={todo} deleteTodo={this.deleteTodo.bind(this)} />;
+      body = <ViewProject project={project} deleteProject={this.deleteProject.bind(this)} />;
     }
     return (
       <Grid container spacing={2}>
@@ -71,13 +71,13 @@ class todoView extends Component {
   }
 }
 
-todoView.propTypes = {
+projectView.propTypes = {
   classes: PropTypes.object.isRequired,
-  deleteTodo: PropTypes.func.isRequired
+  deleteProject: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({ todo: state.todo });
+const mapStateToProps = state => ({ project: state.project });
 
-export default connect(mapStateToProps, { getTodo, deleteTodo })(
-  withStyles(styles)(todoView)
+export default connect(mapStateToProps, { getProject, deleteProject })(
+  withStyles(styles)(projectView)
 );

@@ -1,71 +1,71 @@
-//app reducers
+//project reducers
 import {
-  CREATE_TODO,
-  READ_TODO_ALL,
-  READ_TODO,
-  UPDATE_TODO,
-  DELETE_TODO,
-  READ_LOADING_TODO,
-  WRITE_LOADING_TODO,
-  SET_TODO_ERROR
+  CREATE_PROJECT,
+  READ_PROJECT_ALL,
+  READ_PROJECT,
+  UPDATE_PROJECT,
+  DELETE_PROJECT,
+  READ_LOADING_PROJECT,
+  WRITE_LOADING_PROJECT,
+  SET_PROJECT_ERROR
 } from "../types";
 
 const initialState = {
   readLoading: false,
   writeLoading: false,
   error: {},
-  todos: [],
-  todo: {}
+  projects: [],
+  project: {}
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case READ_TODO_ALL:
+    case READ_PROJECT_ALL:
       return {
         ...state,
         readLoading: false,
-        todos: action.payload,
+        projects: action.payload,
         error: {}
       };
-    case READ_TODO:
+    case READ_PROJECT:
       return {
         ...state,
         readLoading: false,
-        todo: action.payload,
+        project: action.payload,
         error: {}
       };
-    case CREATE_TODO:
+    case CREATE_PROJECT:
       return {
         ...state,
         writeLoading: false,
-        todos: [...state.todos, action.payload],
+        projects: [...state.projects, action.payload],
         error: {}
       };
-    case DELETE_TODO:
-      return {
-        ...state,
-        writeLoading: false,
-        error: {}
-      };
-    case UPDATE_TODO:
+    case DELETE_PROJECT:
       return {
         ...state,
         writeLoading: false,
         error: {}
       };
-    case READ_LOADING_TODO:
+    case UPDATE_PROJECT:
+      return {
+        ...state,
+        writeLoading: false,
+        error: {}
+      };
+    case READ_LOADING_PROJECT:
       return {
         ...state,
         readLoading: true,
         error: {}
       };
-    case WRITE_LOADING_TODO:
+    case WRITE_LOADING_PROJECT:
       return {
         ...state,
         writeLoading: true,
         error: {}
       };
-    case SET_TODO_ERROR:
+    case SET_PROJECT_ERROR:
       return {
         ...state,
         readLoading: false,

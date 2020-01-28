@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 //Redux
 import { connect } from "react-redux";
-import { createTodo } from "../../redux/actions/todoActions";
+import { createProject } from "../../redux/actions/projectActions";
 
 //Components
-import CreateTodo from "../../components/app/todo/CreateTodo";
+import CreateProject from "../../components/app/project/CreateProject";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 
@@ -16,21 +16,21 @@ import Grid from "@material-ui/core/Grid";
 
 const styles = {};
 
-class todoCreate extends Component {
-  async createTodo(data) {
-    await this.props.createTodo(data, this.props.history);
+class projectCreate extends Component {
+  async createProject(data) {
+    await this.props.createProject(data, this.props.history);
   }
   render() {
-    const loading = this.props.todo.loading;
-    const error = this.props.todo.error;
+    const loading = this.props.project.loading;
+    const error = this.props.project.error;
     let header = (
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "Todos", url: "/todo" }
+          { name: "Projects", url: "/project" }
         ]}
         currentPage={{ name: "Create", url: "#" }}
-        title={"Create Todo"}
+        title={"Create Project"}
       />
     );
     let footer;
@@ -41,9 +41,9 @@ class todoCreate extends Component {
       body = <LoadingBasic />;
     } else {
       body = (
-        <CreateTodo
+        <CreateProject
           loading={loading}
-          createTodo={this.createTodo.bind(this)}
+          createProject={this.createProject.bind(this)}
           error={error}
         />
       );
@@ -63,15 +63,15 @@ class todoCreate extends Component {
   }
 }
 
-todoCreate.propTypes = {
+projectCreate.propTypes = {
   classes: PropTypes.object.isRequired,
-  createTodo: PropTypes.func.isRequired
+  createProject: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  todo: state.todo
+  project: state.project
 });
 
-export default connect(mapStateToProps, { createTodo })(
-  withStyles(styles)(todoCreate)
+export default connect(mapStateToProps, { createProject })(
+  withStyles(styles)(projectCreate)
 );

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 //Redux
 import { connect } from "react-redux";
-import { getTodo, editTodo } from "../../redux/actions/todoActions";
+import { getProject, editProject } from "../../redux/actions/projectActions";
 
 //Components
-import EditTodo from "../../components/app/todo/EditTodo";
+import EditProject from "../../components/app/project/EditProject";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 import ErrorHandler from "../../components/error/ErrorHandler";
@@ -31,39 +31,39 @@ const styles = {
   }
 };
 
-class todoEdit extends Component {
+class projectEdit extends Component {
   constructor() {
     super();
     this.state = {
       name: "",
       description: "",
       descriptionDelta: [],
-      projectId: "",
-      assignee: "",
-      details: "",
-      priority: "",
-      status: ""
+          tags: "",
+        end: "",
+        type: "",
+        start: "",
+
     };
   }
   async componentDidMount() {
-    await this.props.getTodo(this.props.match.params.id);
-    const todo = this.props.todo.todo;
-    const errors = this.props.todo.errors;
+    await this.props.getProject(this.props.match.params.id);
+    const project = this.props.project.project;
+    const errors = this.props.project.errors;
     if (!errors || !(errors.length > 0)) {
       this.setState({
-        name: todo.name,
-        description: todo.description,
-        descriptionDelta: todo.descriptionDelta,
-        projectId: todo.projectId,
-        assignee: todo.assignee,
-        details: todo.details,
-        priority: todo.priority,
-        status: todo.status
+        name: project.name,
+        description: project.description,
+        descriptionDelta: project.descriptionDelta,
+      tags: project.tags,
+      end: project.end,
+      type: project.type,
+      start: project.start,
+
       });
     }
   }
-  async editTodo(data) {
-    await this.props.editTodo(
+  async editProject(data) {
+    await this.props.editProject(
       this.props.match.params.id,
       data,
       this.props.history
@@ -84,31 +84,31 @@ class todoEdit extends Component {
       name: this.state.name,
       description: this.state.description,
       descriptionDelta: this.state.descriptionDelta,
-      projectId: this.state.projectId,
-      assignee: this.state.assignee,
-      details: this.state.details,
-      priority: this.state.priority,
-      status: this.state.status
+      tags: this.state.tags,
+      end: this.state.end,
+      type: this.state.type,
+      start: this.state.start,
+
     };
-    await this.props.editTodo(
+    await this.props.editProject(
       this.props.match.params.id,
       data,
       this.props.history
     );
   };
   render() {
-    const loading = this.props.todo.readLoading;
-    const saveLoading = this.props.todo.writeLoading;
-    const error = this.props.todo.error;
+    const loading = this.props.project.readLoading;
+    const saveLoading = this.props.project.writeLoading;
+    const error = this.props.project.error;
     let header = (
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
-          { name: "Todos", url: "/todo" },
-          { name: this.state.name, url: `/todo/${this.props.match.params.id}` }
+          { name: "Projects", url: "/project" },
+          { name: this.state.name, url: `/project/${this.props.match.params.id}` }
         ]}
         currentPage={{ name: "Edit", url: "#" }}
-        title={"Todos"}
+        title={"Projects"}
       />
     );
     let body;
@@ -119,7 +119,7 @@ class todoEdit extends Component {
       body = <LoadingBasic />;
     } else {
       body = (
-        <EditTodo
+        <EditProject
           handleSave={this.handleSave.bind(this)}
           handleChange={this.handleChange.bind(this)}
           handleQuillChange={this.handleQuillChange.bind(this)}
@@ -146,16 +146,16 @@ class todoEdit extends Component {
   }
 }
 
-todoEdit.propTypes = {
+projectEdit.propTypes = {
   classes: PropTypes.object.isRequired,
-  getTodo: PropTypes.func.isRequired,
-  editTodo: PropTypes.func.isRequired
+  getProject: PropTypes.func.isRequired,
+  editProject: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  todo: state.todo
+  project: state.project
 });
 
-export default connect(mapStateToProps, { getTodo, editTodo })(
-  withStyles(styles)(todoEdit)
+export default connect(mapStateToProps, { getProject, editProject })(
+  withStyles(styles)(projectEdit)
 );
