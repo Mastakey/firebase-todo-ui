@@ -28,7 +28,11 @@ class todoView extends Component {
   }
   async deleteTodo() {
     const id = this.props.match.params.id;
-    await this.props.deleteTodo(id, this.props.history);
+    let projectId = "";
+    if (this.props.todo && this.props.todo.todo) {
+      projectId = this.props.todo.todo.projectId;
+    }
+    await this.props.deleteTodo(id, projectId, this.props.history);
   }
   render() {
     const todo = this.props.todo.todo;

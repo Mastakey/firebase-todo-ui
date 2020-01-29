@@ -18,6 +18,7 @@ export const CLEAR_MESSAGES = "CLEAR_MESSAGES";
 // Todo reducers
 export const CREATE_TODO = "CREATE_TODO";
 export const READ_TODO_ALL = "READ_TODO_ALL";
+export const READ_TODO_PROJECT = "READ_TODO_PROJECT";
 export const READ_TODO = "READ_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
 export const DELETE_TODO = "DELETE_TODO";

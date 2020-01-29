@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 //Redux
 import { connect } from "react-redux";
 import { getProject, deleteProject } from "../../redux/actions/projectActions";
+import { getTodosByProject } from "../../redux/actions/todoActions";
 
 //Components
 import ViewProject from "../../components/app/project/ViewProject";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 import ErrorHandler from "../../components/error/ErrorHandler";
+import ProjectTodo from "../../components/app/todo/ProjectTodo";
 
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -24,7 +26,8 @@ const styles = {
 class projectView extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
-    await this.props.getProject(id);
+    this.props.getProject(id);
+    this.props.getTodosByProject(id);
   }
   async deleteProject() {
     const id = this.props.match.params.id;
@@ -32,7 +35,10 @@ class projectView extends Component {
   }
   render() {
     const project = this.props.project.project;
+    const projectId = this.props.match.params.id;
+    const todos = this.props.todo.todos;
     const loading = this.props.project.readLoading;
+    const todosLoading = this.props.todo.todosLoading;
     const error = this.props.project.error;
     let header = (
       <PageHeader
@@ -46,14 +52,22 @@ class projectView extends Component {
     );
     let body;
     let footer;
-    if (loading) {
+    if (loading || todosLoading) {
       body = (
         <Grid container item xs={12}>
           <LoadingBasic />
         </Grid>
       );
     } else {
-      body = <ViewProject project={project} deleteProject={this.deleteProject.bind(this)} />;
+      body = (
+        <Fragment>
+          <ViewProject
+            project={project}
+            deleteProject={this.deleteProject.bind(this)}
+          />
+          <ProjectTodo todos={todos} projectId={projectId}/>
+        </Fragment>
+      );
     }
     return (
       <Grid container spacing={2}>
@@ -73,11 +87,15 @@ class projectView extends Component {
 
 projectView.propTypes = {
   classes: PropTypes.object.isRequired,
-  deleteProject: PropTypes.func.isRequired
+  getProject: PropTypes.func.isRequired,
+  deleteProject: PropTypes.func.isRequired,
+  getTodosByProject: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({ project: state.project });
+const mapStateToProps = state => ({ project: state.project, todo: state.todo });
 
-export default connect(mapStateToProps, { getProject, deleteProject })(
-  withStyles(styles)(projectView)
-);
+export default connect(mapStateToProps, {
+  getProject,
+  deleteProject,
+  getTodosByProject
+})(withStyles(styles)(projectView));

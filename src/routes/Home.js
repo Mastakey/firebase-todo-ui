@@ -8,6 +8,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import Divider from "@material-ui/core/Divider";
 
 const styles = {
   paper: {
@@ -28,8 +29,9 @@ export class Home extends Component {
           <Paper className={classes.paper} elevation={3}>
             <Typography variant="h2">Home</Typography>
             <Typography variant="body1">Hello!</Typography>
+            <Link to={`/project`}>Project</Link>
+            <Divider />
             <Link to={`/todo`}>Todo</Link>
-              
           </Paper>
         </Grid>
       </Grid>

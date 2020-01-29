@@ -2,6 +2,7 @@
 import {
   CREATE_TODO,
   READ_TODO_ALL,
+  READ_TODO_PROJECT,
   READ_TODO,
   UPDATE_TODO,
   DELETE_TODO,
@@ -21,6 +22,13 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case READ_TODO_ALL:
+      return {
+        ...state,
+        readLoading: false,
+        todos: action.payload,
+        error: {}
+      };
+    case READ_TODO_PROJECT:
       return {
         ...state,
         readLoading: false,

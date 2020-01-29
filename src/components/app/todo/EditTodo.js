@@ -73,6 +73,16 @@ class EditTodoFull extends Component {
           />
           <TextField
             className={classes.textField}
+            name="projectId"
+            autoComplete="off"
+            label="ProjectId"
+            variant="outlined"
+            value={this.props.state.projectId}
+            onChange={this.props.handleChange}
+            fullWidth
+          />
+          <TextField
+            className={classes.textField}
             name="details"
             autoComplete="off"
             label="Details"
