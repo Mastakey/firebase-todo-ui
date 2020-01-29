@@ -32,7 +32,7 @@ export class Navbar extends Component {
           <Toolbar className="nav-container">
             <div className={classes.home}>
               <Button color="inherit" component={Link} to="/">
-                Home
+                Todo
               </Button>
             </div>
             {!authenticated ? (

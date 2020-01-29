@@ -38,10 +38,13 @@ class todoView extends Component {
     const todo = this.props.todo.todo;
     const loading = this.props.todo.readLoading;
     const error = this.props.todo.error;
+    const projectId = todo.projectId;
     let header = (
       <PageHeader
         ancestors={[
           { name: "Home", url: "/" },
+          { name: "Projects", url: "/project" },
+          { name: "Project", url: "/project/" + projectId },
           { name: "Todos", url: "/todo" }
         ]}
         currentPage={{ name: todo.name, url: "/todo" }}

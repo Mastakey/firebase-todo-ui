@@ -27,9 +27,11 @@ export class Home extends Component {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper} elevation={3}>
-            <Typography variant="h2">Home</Typography>
+            <Typography variant="h2">Todo</Typography>
             <Typography variant="body1">Hello!</Typography>
-            <Link to={`/project`}>Project</Link>
+            <Typography variant="h5">
+              <Link to={`/project`}>Projects</Link>
+            </Typography>
             <Divider />
             <Link to={`/todo`}>Todo</Link>
           </Paper>
