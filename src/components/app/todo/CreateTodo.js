@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Paper from "@material-ui/core/Paper";
 
 //Quill
 import ReactQuill from "react-quill";
@@ -30,6 +31,13 @@ const styles = {
   },
   richText: {
     marginTop: "20px"
+  },
+  paper: {
+    padding: "20px"
+  },
+  buttonGrid: {
+    marginTop: "20px",
+    marginBottom: "20px"
   }
 };
 
@@ -86,93 +94,96 @@ class CreateTodo extends Component {
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField
-            className={classes.textField}
-            name="name"
-            autoComplete="off"
-            label="Name"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
-          />
-          <ReactQuill
-            className={classes.richText}
-            value={this.state.description}
-            modules={QuillSettings.modules}
-            formats={QuillSettings.formats}
-            name="description"
-            placeholder="Description"
-            onChange={this.handleQuillChange.bind(this)}
-          />
-          <TextField
-            className={classes.textField}
-            name="projectId"
-            autoComplete="off"
-            label="Project Id"
-            variant="outlined"
-            onChange={this.handleChange}
-            defaultValue={projectId}
-            fullWidth
-          />
-          <TextField
-            className={classes.textField}
-            name="assignee"
-            autoComplete="off"
-            label="Assignee"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
-          />
-          <TextField
-            className={classes.textField}
-            name="details"
-            autoComplete="off"
-            label="Details"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
-          />
-          <TextField
-            className={classes.textField}
-            name="status"
-            autoComplete="off"
-            label="Status"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
-          />
-          <TextField
-            className={classes.textField}
-            name="priority"
-            autoComplete="off"
-            label="Priority"
-            variant="outlined"
-            onChange={this.handleChange}
-            fullWidth
-          />
+          <Paper elevation={3} className={classes.paper}>
+            <TextField
+              className={classes.textField}
+              name="name"
+              autoComplete="off"
+              label="Name"
+              variant="outlined"
+              onChange={this.handleChange}
+              fullWidth
+            />
+            <ReactQuill
+              className={classes.richText}
+              value={this.state.description}
+              modules={QuillSettings.modules}
+              formats={QuillSettings.formats}
+              name="description"
+              placeholder="Description"
+              onChange={this.handleQuillChange.bind(this)}
+            />
+            <TextField
+              className={classes.textField}
+              name="projectId"
+              autoComplete="off"
+              label="Project Id"
+              variant="outlined"
+              onChange={this.handleChange}
+              defaultValue={projectId}
+              fullWidth
+            />
+            <TextField
+              className={classes.textField}
+              name="assignee"
+              autoComplete="off"
+              label="Assignee"
+              variant="outlined"
+              onChange={this.handleChange}
+              fullWidth
+            />
+            <TextField
+              className={classes.textField}
+              name="details"
+              autoComplete="off"
+              label="Details"
+              variant="outlined"
+              onChange={this.handleChange}
+              fullWidth
+            />
+            <TextField
+              className={classes.textField}
+              name="status"
+              autoComplete="off"
+              label="Status"
+              variant="outlined"
+              onChange={this.handleChange}
+              fullWidth
+            />
+            <TextField
+              className={classes.textField}
+              name="priority"
+              autoComplete="off"
+              label="Priority"
+              variant="outlined"
+              onChange={this.handleChange}
+              fullWidth
+            />
+            <Grid item xs={12} className={classes.buttonGrid}>
+              <Button
+                className={classes.submitButton}
+                variant="contained"
+                color="primary"
+                disabled={loading}
+                onClick={this.handleSubmit}
+              >
+                Submit
+                {loading && (
+                  <CircularProgress size={30} className={classes.progress} />
+                )}
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                component={Link}
+                to={`/todo`}
+              >
+                Cancel
+              </Button>
+            </Grid>
+          </Paper>
         </Grid>
-        <Grid item xs={12}>
-          <Button
-            className={classes.submitButton}
-            variant="contained"
-            color="primary"
-            disabled={loading}
-            onClick={this.handleSubmit}
-          >
-            Submit
-            {loading && (
-              <CircularProgress size={30} className={classes.progress} />
-            )}
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            component={Link}
-            to={`/todo`}
-          >
-            Cancel
-          </Button>
-        </Grid>
+
         <Grid item xs={12}>
           <ErrorMessages error={error} />
         </Grid>
