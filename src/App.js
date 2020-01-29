@@ -7,17 +7,17 @@ import Navbar from "./components/nav/Navbar";
 import Alerts from "./components/alerts/Alerts";
 
 //Routes
-import Home from "./routes/Home";
+//import Home from "./routes/Home";
 import Login from "./routes/Login";
 import Logout from "./routes/Logout";
 import Signup from "./routes/Signup";
-    
+
 //Project
 import projectAll from "./routes/project/projectAll";
 import projectView from "./routes/project/projectView";
 import projectCreate from "./routes/project/projectCreate";
 import projectEdit from "./routes/project/projectEdit";
-    
+
 //Todo
 import todoAll from "./routes/todo/todoAll";
 import todoView from "./routes/todo/todoView";
@@ -34,7 +34,8 @@ import { getUserData } from "./redux/actions/userActions";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://us-central1-todo-6d12f.cloudfunctions.net/api";
+axios.defaults.baseURL =
+  "https://us-central1-todo-6d12f.cloudfunctions.net/api";
 
 const token = localStorage.FBIdToken;
 if (token) {
@@ -53,6 +54,7 @@ if (token) {
 }
 
 function App() {
+  //<Route exact path="/" component={Home} />
   return (
     <div className="App">
       <Provider store={store}>
@@ -61,7 +63,7 @@ function App() {
           <div className="container">
             <Alerts />
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={projectAll} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/logout" component={Logout} />
               <Route exact path="/signup" component={Signup} />
