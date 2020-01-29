@@ -71,9 +71,13 @@ function App() {
               <Route exact path="/project/edit/:id" component={projectEdit} />
               <Route exact path="/todo" component={todoAll} />
               <Route exact path="/todo/create" component={todoCreate} />
+              <Route
+                exact
+                path="/project/:id/todo/create"
+                component={todoCreate}
+              />
               <Route exact path="/todo/:id" component={todoView} />
               <Route exact path="/todo/edit/:id" component={todoEdit} />
-  
             </Switch>
           </div>
         </Router>

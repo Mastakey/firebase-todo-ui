@@ -52,38 +52,39 @@ class ViewTodo extends Component {
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paper}>
-              <Fab
-                size="small"
-                color="secondary"
-                className={classes.fabDelete}
-                onClick={this.handleDelete.bind(this)}
-              >
-                <DeleteIcon />
-              </Fab>
-              <DeleteDialog
-                deleteFunction={this.props.deleteTodo}
-                open={this.state.showDeleteDialog}
-                handleClose={this.handleDeleteDialogClose.bind(this)}
+          <Paper elevation={3} className={classes.paper}>
+            <Fab
+              size="small"
+              color="secondary"
+              className={classes.fabDelete}
+              onClick={this.handleDelete.bind(this)}
+            >
+              <DeleteIcon />
+            </Fab>
+            <DeleteDialog
+              deleteFunction={this.props.deleteTodo}
+              open={this.state.showDeleteDialog}
+              handleClose={this.handleDeleteDialogClose.bind(this)}
+            />
+            <Typography variant="h5">{todo.name}</Typography>
+            <Typography variant="body1">
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: todo.description
+                }}
               />
-              <Typography variant="h5">{todo.name}</Typography>
-              <Typography variant="body1">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: todo.description
-                  }}
-                />
-              </Typography>
-              <Typography variant="body1">{todo.assignee}</Typography>
-              <Typography variant="body1">{todo.details}</Typography>
-              <Typography variant="body1">{todo.status}</Typography>
-              <Typography variant="body1">{todo.priority}</Typography>
-              <Link to={`/todo/edit/${todo.id}`}>
-                <Fab size="small" color="default" className={classes.fab}>
-                  <EditIcon />
-                </Fab>
-              </Link>
-            </Paper>
+            </Typography>
+            <Typography variant="body1">{todo.projectId}</Typography>
+            <Typography variant="body1">{todo.assignee}</Typography>
+            <Typography variant="body1">{todo.details}</Typography>
+            <Typography variant="body1">{todo.status}</Typography>
+            <Typography variant="body1">{todo.priority}</Typography>
+            <Link to={`/todo/edit/${todo.id}`}>
+              <Fab size="small" color="default" className={classes.fab}>
+                <EditIcon />
+              </Fab>
+            </Link>
+          </Paper>
         </Grid>
       </Grid>
     );

@@ -45,6 +45,7 @@ class todoCreate extends Component {
           loading={loading}
           createTodo={this.createTodo.bind(this)}
           error={error}
+          projectId={this.props.match.params.id}
         />
       );
     }

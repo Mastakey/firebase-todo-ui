@@ -72,10 +72,17 @@ class CreateTodo extends Component {
       descriptionDelta: editor.getContents()
     });
   }
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      projectId: this.props.projectId
+    });
+  }
   render() {
     const classes = this.props.classes;
     const loading = this.props.loading;
     const error = this.props.error;
+    const projectId = this.props.projectId;
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -96,6 +103,16 @@ class CreateTodo extends Component {
             name="description"
             placeholder="Description"
             onChange={this.handleQuillChange.bind(this)}
+          />
+          <TextField
+            className={classes.textField}
+            name="projectId"
+            autoComplete="off"
+            label="Project Id"
+            variant="outlined"
+            onChange={this.handleChange}
+            defaultValue={projectId}
+            fullWidth
           />
           <TextField
             className={classes.textField}
